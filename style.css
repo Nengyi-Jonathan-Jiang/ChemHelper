@@ -1,10 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 * {
     box-sizing: border-box;
+}
+
+#periodic-table {
+    width: fit-content;
 }
 
 #periodic-table-main, #periodic-table-bottom {
     display: block;
     font-size: 0;
+    font-family: Nunito, sans-serif;
+}
+
+#periodic-table-bottom {
+    margin-left: 170px;
+    margin-top: 20px;
+}
+
+#periodic-table-main>.element:nth-child(19n + 2),
+#periodic-table-main>.blank:nth-child(19n + 2){
+    margin-right: 20px;
 }
 
 .element, .blank {
@@ -12,14 +28,15 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 60px;
-    height: 70px;
+    width: 75px;
+    height: 75px;
     line-height: 1.2;
     font-size: 25px;
 }
 
 .blank {
     color: transparent;
+    user-select: none;
 }
 
 .element {
@@ -31,17 +48,39 @@
     align-items: center;
 }
 
-.element::before {
+.element::after {
     position: absolute;
     font-size: 12px;
     content: attr(data-number);
-    top: 5px;
-    right: 5px;
+    top: 4px;
+    left: 4px;
 }
 
-.element::after {
+.element>.element-name {
     position: absolute;
     font-size: 10px;
     content: attr(data-name);
-    bottom: 5px;
+    bottom: 6px;
+}
+.element>.element-mass {
+    position: absolute;
+    font-size: 12px;
+    content: attr(data-name);
+    top: 4px;
+    right: 4px;
+}
+
+.element>.element-oxidation { display: none; }
+.element:hover>.element-oxidation:not(:last-child)::after {
+    content: ', ';
+}
+.element:hover>.element-oxidation {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    position: absolute;
+    font-size: 12px;
+    content: attr(data-name);
+    top: 20px;
+    right: 4px;
 }
