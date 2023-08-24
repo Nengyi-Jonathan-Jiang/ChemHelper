@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Table</title>
     <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="style2.css" type="text/css">
     <script src="data.js"></script>
 </head>
 <body>
@@ -14,6 +15,14 @@
         <div id="periodic-table-main"></div>
         <div id="periodic-table-bottom"></div>
     </div>
+    <div id="info-bar" data-state="hidden">
+        <h2>
+            Element name: <span id="element-name-info"></span>
+        </h2>
+        <div>Atomic mass: <span id="atomic-mass-info"></span></div>
+        <div>Oxidation states: <span id="oxidation-states-info"></span></div>
+    </div>
     <script src="script.js"></script>
+    <script src="script2.js"></script>
 </body>
 </html>

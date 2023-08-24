@@ -1,0 +1,3 @@
+#info-bar[data-state='hidden'] * {
+    display: none;
+}
