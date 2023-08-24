@@ -1,25 +1,28 @@
 const table_main = document.getElementById("periodic-table-main");
 const table_bottom = document.getElementById("periodic-table-bottom");
 
-function addBlankEntry(el, number) {
+function addBlankEntry() {
     const d = document.createElement("div");
     d.className = "blank"
+    d.innerText = ".";
     table_main.appendChild(d);
 }
 
 function addElementEntry(el, number) {
     const d = document.createElement("div");
+    d.dataset.number = number;
 
     if(el === null) {
         d.className = "element unknown";
+        d.innerText = "?";
         table_main.appendChild(d);
         return;
     }
 
-    console.log(el);
+    const {symbol, name, category, "atomic-mass": atomic_mass} = el;
 
-    const {symbol, name, category} = el;
-    const atomic_mass = el["atomic-mass"];
+    d.dataset.mass = atomic_mass;
+    d.dataset.name = name;
 
     d.className = `element ${category}`;
     d.innerText = symbol;
