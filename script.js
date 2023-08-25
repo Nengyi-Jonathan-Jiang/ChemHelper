@@ -18,10 +18,12 @@ function createElementEntry(el, number) {
         return d;
     }
 
-    const {symbol, name, category, "atomic-mass": atomic_mass, "oxidation-states": oxidation_states} = el;
+    const {symbol, name, category, "atomic-mass": atomic_mass, "oxidation-states": oxidation_states, radioactive} = el;
 
     d.className = `element ${category}`;
     d.innerText = symbol;
+
+    if(radioactive) d.className += ' radioactive';
 
     const mass_d = document.createElement("span");
     mass_d.className = 'element-mass';
@@ -31,6 +33,7 @@ function createElementEntry(el, number) {
     const name_d = document.createElement("span");
     name_d.className = 'element-name';
     name_d.innerText = name;
+    if(el['text-shrink']) name_d.style.setProperty('--text-shrink', el['text-shrink'] * 100 + '%');
     d.appendChild(name_d);
 
     if(oxidation_states) {

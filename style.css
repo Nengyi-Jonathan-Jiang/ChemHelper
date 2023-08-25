@@ -28,8 +28,8 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 75px;
-    height: 75px;
+    width: 70px;
+    height: 70px;
     line-height: 1.2;
     font-size: 25px;
 }
@@ -48,6 +48,22 @@
     align-items: center;
 }
 
+.element.noble-gas { background-color: #feb; }
+.element.halogen { background-color: #ffc; }
+.element.non-metal { background-color: #bfe; }
+.element.metalloid { background-color: #bff; }
+.element.post-transition-metal { background-color: #bef; }
+.element.transition-metal { background-color: #dcf; }
+.element.rare-earth-metal { background-color: #edf; }
+.element.alkali-earth-metal { background-color: #fdf; }
+.element.alkali-metal { background-color: #fcd; }
+.element.actinoid { background-color: #def; }
+.element.unknown { color: #bbb; }
+
+.element.radioactive {
+
+}
+
 .element::after {
     position: absolute;
     font-size: 12px;
@@ -57,11 +73,19 @@
 }
 
 .element>.element-name {
+    display: inline-block;
     position: absolute;
-    font-size: 10px;
+    font-size: 12px;
     content: attr(data-name);
     bottom: 6px;
+    --text-shrink: 100%;
+    transform: scaleX(var(--text-shrink));
+
+    /*max-width: 60px;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
 }
+
 .element>.element-mass {
     position: absolute;
     font-size: 12px;
