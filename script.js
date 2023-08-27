@@ -8,6 +8,22 @@ function addBlankEntry() {
     table_main.appendChild(d);
 }
 
+function createSpan(cls, content='', data={}){
+    const span = document.createElement('span');
+    span.className = cls;
+    if(content) span.innerText = content;
+    if(data) for(let i of Object.keys(data)) {
+        span.dataset[i] = data[i];
+    }
+    return span;
+}
+function createDiv(cls, content=''){
+    const div = document.createElement('div');
+    div.className = cls;
+    if(content) div.innerText = content;
+    return div;
+}
+
 function createElementEntry(el, number) {
     const d = document.createElement("div");
     d.dataset.number = number;
@@ -18,12 +34,21 @@ function createElementEntry(el, number) {
         return d;
     }
 
-    const {symbol, name, category, "atomic-mass": atomic_mass, "oxidation-states": oxidation_states, radioactive} = el;
+    const {symbol, name, category, "atomic-mass": atomic_mass, "oxidation-states": oxidation_states,
+        radioactive, primordial, magnetic, diatomic, synthetic, native
+    } = el;
 
     d.className = `element ${category}`;
     d.innerText = symbol;
 
-    if(radioactive) d.className += ' radioactive';
+    const tags = createDiv('element-tags');
+    if(primordial) tags.appendChild(createSpan('element-tag tag-primordial'));
+    if(native) tags.appendChild(createSpan('element-tag tag-native'));
+    if(radioactive) tags.appendChild(createSpan('element-tag tag-radioactive'));
+    if(magnetic) tags.appendChild(createSpan('element-tag tag-magnetic'));
+    if(diatomic) tags.appendChild(createSpan('element-tag tag-diatomic'));
+    if(synthetic) tags.appendChild(createSpan('element-tag tag-synthetic'));
+    d.appendChild(tags);
 
     const mass_d = document.createElement("span");
     mass_d.className = 'element-mass';
@@ -36,13 +61,20 @@ function createElementEntry(el, number) {
     if(el['text-shrink']) name_d.style.setProperty('--text-shrink', el['text-shrink'] * 100 + '%');
     d.appendChild(name_d);
 
-    if(oxidation_states) {
+    if(oxidation_states && oxidation_states.length) {
         const oxidation_d = document.createElement("span");
         oxidation_d.className = 'element-oxidation';
-        for(let i of oxidation_states){
-            const s = document.createElement("span");
-            s.innerText = i;
-            oxidation_d.appendChild(s);
+        if(oxidation_states.length <= 3){
+            for(let i of oxidation_states){
+                const s = document.createElement("span");
+                s.innerText = i;
+                oxidation_d.appendChild(s);
+            }
+        }
+        else {
+            oxidation_d.appendChild(createSpan('', oxidation_states[0]));
+            oxidation_d.appendChild(createSpan('', oxidation_states[1]));
+            oxidation_d.appendChild(createSpan('oxidation-more', '...', {states: oxidation_states.join('\n')}))
         }
         d.appendChild(oxidation_d);
     }

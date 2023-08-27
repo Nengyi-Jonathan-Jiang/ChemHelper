@@ -1,26 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+body {
+    position: absolute; top: 0; left: 0; margin: 0; padding: 0;
+}
+
 * {
     box-sizing: border-box;
 }
 
+#periodic-table-container {
+    display: flex;
+}
+
 #periodic-table {
     width: fit-content;
+    --scale: 1.35px;
+    padding: calc(var(--scale) * 20);
 }
 
 #periodic-table-main, #periodic-table-bottom {
     display: block;
     font-size: 0;
     font-family: Nunito, sans-serif;
+    white-space: pre;
 }
 
 #periodic-table-bottom {
-    margin-left: 170px;
-    margin-top: 20px;
+    margin-left: calc(var(--scale) * 160);
+    margin-top: calc(var(--scale) * 20);
 }
 
 #periodic-table-main>.element:nth-child(19n + 2),
 #periodic-table-main>.blank:nth-child(19n + 2){
-    margin-right: 20px;
+    margin-right: calc(var(--scale) * 20);
 }
 
 .element, .blank {
@@ -28,10 +40,10 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 70px;
-    height: 70px;
+    width: calc(var(--scale) * 70);
+    height: calc(var(--scale) * 70);
     line-height: 1.2;
-    font-size: 25px;
+    font-size: calc(var(--scale) * 25);
 }
 
 .blank {
@@ -40,73 +52,117 @@
 }
 
 .element {
+    --color: #fff;
     position: relative;
-    border: 1px solid black;
-    outline: 1px solid black;
+    border: calc(var(--scale) * 1) solid black;
+    outline: calc(var(--scale) * 1) solid black;
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--color);
 }
 
-.element.noble-gas { background-color: #feb; }
-.element.halogen { background-color: #ffc; }
-.element.non-metal { background-color: #bfe; }
-.element.metalloid { background-color: #bff; }
-.element.post-transition-metal { background-color: #bef; }
-.element.transition-metal { background-color: #dcf; }
-.element.rare-earth-metal { background-color: #edf; }
-.element.alkali-earth-metal { background-color: #fdf; }
-.element.alkali-metal { background-color: #fcd; }
-.element.actinoid { background-color: #def; }
+.element.noble-gas { --color: #feb; }
+.element.halogen { --color: #ffc; }
+.element.non-metal { --color: #bfe; }
+.element.metalloid { --color: #bff; }
+.element.post-transition-metal { --color: #bef; }
+.element.transition-metal { --color: #dcf; }
+.element.alkali-earth-metal { --color: #fdf; }
+.element.alkali-metal { --color: #fcd; }
+.element.lanthanoid { --color: #ddd; }
+.element.actinoid { --color: #bbb; }
 .element.unknown { color: #bbb; }
 
 .element.radioactive {
 
 }
 
+.element-tags {
+    position: absolute;
+    top: calc(var(--scale) * 17);
+    left: calc(var(--scale) * 4);
+    display: flex;
+    flex-direction: column;
+}
+.element-tag {
+    position: relative;
+    display: block;
+    width: calc(var(--scale) * 11);
+    height: calc(var(--scale) * 11);
+    background-size: cover;
+}
+
+.element-tag:hover::after {
+    position: absolute;
+    top: calc(var(--scale) * -1); left: calc(var(--scale) * 14);
+    font-size: calc(var(--scale) * 10);
+    outline: calc(var(--scale) * 1) solid black;
+    background: var(--color);
+    padding: calc(var(--scale) * 1);
+    z-index: 1;
+}
+
+.element-tag.tag-primordial:hover::after { content: "Primordial" }
+.element-tag.tag-primordial { background-image: url('res/primordial.png') }
+.element-tag.tag-radioactive:hover::after { content: "Unstable" }
+.element-tag.tag-radioactive { background-image: url('res/radioactive.png') }
+.element-tag.tag-magnetic:hover::after { content: "Magnetic" }
+.element-tag.tag-magnetic { background-image: url('res/magnetic.png') }
+.element-tag.tag-diatomic:hover::after { content: "Diatomic" }
+.element-tag.tag-diatomic { background-image: url('res/diatomic.png') }
+.element-tag.tag-synthetic:hover::after { content: "Synthetic" }
+.element-tag.tag-synthetic { background-image: url('res/synthetic.png') }
+.element-tag.tag-native:hover::after { content: "Native" }
+.element-tag.tag-native { background-image: url('res/native.png') }
+
 .element::after {
     position: absolute;
-    font-size: 12px;
+    font-size: calc(var(--scale) * 12);
     content: attr(data-number);
-    top: 4px;
-    left: 4px;
+    top: calc(var(--scale) * 4);
+    left: calc(var(--scale) * 4);
 }
 
 .element>.element-name {
     display: inline-block;
     position: absolute;
-    font-size: 12px;
+    font-size: calc(var(--scale) * 12);
     content: attr(data-name);
-    bottom: 6px;
+    bottom: calc(var(--scale) * 6);
     --text-shrink: 100%;
     transform: scaleX(var(--text-shrink));
-
-    /*max-width: 60px;*/
-    /*overflow: hidden;*/
-    /*text-overflow: ellipsis;*/
 }
 
 .element>.element-mass {
     position: absolute;
-    font-size: 12px;
+    font-size: calc(var(--scale) * 12);
     content: attr(data-name);
-    top: 4px;
-    right: 4px;
+    top: calc(var(--scale) * 4);
+    right: calc(var(--scale) * 4);
 }
 
-.element>.element-oxidation { display: none; }
-.element:hover>.element-oxidation:not(:last-child)::after {
-    content: ', ';
-}
-.element:hover>.element-oxidation {
+.element>.element-oxidation {
     display: flex;
     flex-direction: column;
     align-items: end;
     position: absolute;
-    font-size: 12px;
+    font-size: calc(var(--scale) * 11);
+    line-height: 1.0;
     content: attr(data-name);
-    top: 20px;
-    right: 4px;
+    top: calc(var(--scale) * 18);
+    right: calc(var(--scale) * 4);
+}
+.element>.element-oxidation>.oxidation-more:hover::after {
+    text-align: right;
+    position: absolute;
+    bottom: -14px;
+    right: 0;
+    content: attr(data-states);
+    background-color: var(--color);
+    border: 1px solid black;
+    z-index: 1;
+    padding: 1px;
 }
 
 #info-bar[data-state='hidden'] * {
