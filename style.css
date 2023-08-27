@@ -14,7 +14,7 @@ body {
 
 #periodic-table {
     width: fit-content;
-    --scale: 1.35px;
+    --scale: .075vw;
     padding: calc(var(--scale) * 20);
 }
 
