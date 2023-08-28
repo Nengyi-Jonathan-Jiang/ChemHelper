@@ -1,28 +1,49 @@
 <!doctype HTML>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Table</title>
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <script src="data.js"></script>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Table</title>
+        <link rel="stylesheet" href="style.css" type="text/css">
+        <script src="data.js"></script>
+    </head>
+    <body>
     <div id="periodic-table-container">
         <div id="periodic-table">
             <div id="periodic-table-main"></div>
             <div id="periodic-table-bottom"></div>
-        </div>
-        <div id="info-bar" data-state="hidden">
-            <h2>
-                Element name: <span id="element-name-info"></span>
-            </h2>
-            <div>Atomic mass: <span id="atomic-mass-info"></span></div>
-            <div>Oxidation states: <span id="oxidation-states-info"></span></div>
+            <div id="info-bar-container" data-state="hidden">
+                <div id="info-bar-default">
+                    Click on an element to reveal more detailed information.
+                </div>
+                <div id="info-bar">
+                    <div id="info-big">
+                        On
+                    </div>
+                    <div id="info-main">
+                        <h2>
+                            Element name: <span id="element-name-info"></span>
+                        </h2>
+                        <div>Atomic mass: <span id="atomic-mass-info"></span></div>
+                        <div>Electronegativity: <span id="electronegativity"></span></div>
+                        <div>Oxidation states: <span id="oxidation-states-info"></span></div>
+                        <div>Electron configuration: <span id="electron-configuration"></span></div>
+                    </div>
+                    <div id="info-tags">
+                        <div class="tag-primordial"><span class="element-tag tag-primordial"></span><span>Primordial: this element was formed before the earth was formed</span></div>
+                        <div class="tag-diatomic"><span class="element-tag tag-diatomic"></span><span>Diatomic: this element is diatomic in its pure form</span></div>
+                        <div class="tag-native"><span class="element-tag tag-native"></span><span>Native: this element can be found in pure form in earth's crust</span></div>
+                        <div class="tag-magnetic"><span class="element-tag tag-magnetic"></span><span>Magnetic: this element exhibits ferromagnetism</span></div>
+                        <div class="tag-radioactive"><span class="element-tag tag-radioactive"></span><span>Unstable: this element has no stable isotopes</span></div>
+                        <div class="tag-rare"><span class="element-tag tag-rare"></span><span>Rare: this element occurs VERY rarely in nature</span></div>
+                        <div class="tag-synthetic"><span class="element-tag tag-synthetic"></span><span>Synthetic: this element does not occur naturally</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
-</body>
+    </body>
 </html>

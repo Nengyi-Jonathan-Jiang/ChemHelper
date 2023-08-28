@@ -8,19 +8,26 @@ body {
     box-sizing: border-box;
 }
 
-#periodic-table-container {
-    display: flex;
-}
-
 #periodic-table {
     width: fit-content;
-    --scale: .075vw;
+    --scale: min(.075vw, 0.14vh);
     padding: calc(var(--scale) * 20);
+}
+
+#info-bar-container {
+    position: absolute;
+    top: calc(var(--scale) * 20);
+    left: calc(var(--scale) * 180);
+    width: calc(var(--scale) * 680);
+    height: calc(var(--scale) * 190);
+    outline: calc(var(--scale) * 2) solid black;
+    outline-offset: calc(var(--scale) * -1);
+    font-size: calc(var(--scale) * 12);
+    padding: calc(var(--scale) * 4);
 }
 
 #periodic-table-main, #periodic-table-bottom {
     display: block;
-    font-size: 0;
     font-family: Nunito, sans-serif;
     white-space: pre;
 }
@@ -87,7 +94,7 @@ body {
 }
 .element-tag {
     position: relative;
-    display: block;
+    display: inline-block;
     width: calc(var(--scale) * 11);
     height: calc(var(--scale) * 11);
     background-size: cover;
@@ -111,10 +118,20 @@ body {
 .element-tag.tag-magnetic { background-image: url('res/magnetic.png') }
 .element-tag.tag-diatomic:hover::after { content: "Diatomic" }
 .element-tag.tag-diatomic { background-image: url('res/diatomic.png') }
+.element-tag.tag-rare:hover::after { content: "Rare" }
+.element-tag.tag-rare { background-image: url('res/rare.png') }
 .element-tag.tag-synthetic:hover::after { content: "Synthetic" }
 .element-tag.tag-synthetic { background-image: url('res/synthetic.png') }
 .element-tag.tag-native:hover::after { content: "Native" }
 .element-tag.tag-native { background-image: url('res/native.png') }
+
+#info-tags:not(.tag-primordial) .tag-primordial,
+#info-tags:not(.tag-radioactive) .tag-radioactive,
+#info-tags:not(.tag-magnetic) .tag-magnetic,
+#info-tags:not(.tag-diatomic) .tag-diatomic,
+#info-tags:not(.tag-rare) .tag-rare,
+#info-tags:not(.tag-synthetic) .tag-synthetic,
+#info-tags:not(.tag-native)  .tag-native { display: none; }
 
 .element::after {
     position: absolute;
@@ -140,6 +157,7 @@ body {
     content: attr(data-name);
     top: calc(var(--scale) * 4);
     right: calc(var(--scale) * 4);
+    user-select: none;
 }
 
 .element>.element-oxidation {
@@ -152,6 +170,7 @@ body {
     content: attr(data-name);
     top: calc(var(--scale) * 18);
     right: calc(var(--scale) * 4);
+    user-select: none;
 }
 .element>.element-oxidation>.oxidation-more:hover::after {
     text-align: right;
@@ -165,6 +184,12 @@ body {
     padding: 1px;
 }
 
-#info-bar[data-state='hidden'] * {
+#info-bar-container #info-bar-default {
+    display: none;
+}
+#info-bar-container[data-state='hidden'] #info-bar-default {
+    display: block;
+}
+#info-bar-container[data-state='hidden'] #info-bar {
     display: none;
 }

@@ -35,7 +35,7 @@ function createElementEntry(el, number) {
     }
 
     const {symbol, name, category, "atomic-mass": atomic_mass, "oxidation-states": oxidation_states,
-        radioactive, primordial, magnetic, diatomic, synthetic, native
+        radioactive, primordial, magnetic, diatomic, synthetic, native, rare
     } = el;
 
     d.className = `element ${category}`;
@@ -44,10 +44,12 @@ function createElementEntry(el, number) {
     const tags = createDiv('element-tags');
     if(primordial) tags.appendChild(createSpan('element-tag tag-primordial'));
     if(native) tags.appendChild(createSpan('element-tag tag-native'));
+    if(rare) tags.appendChild(createSpan('element-tag tag-rare'));
+    if(synthetic) tags.appendChild(createSpan('element-tag tag-synthetic'));
+
     if(radioactive) tags.appendChild(createSpan('element-tag tag-radioactive'));
     if(magnetic) tags.appendChild(createSpan('element-tag tag-magnetic'));
     if(diatomic) tags.appendChild(createSpan('element-tag tag-diatomic'));
-    if(synthetic) tags.appendChild(createSpan('element-tag tag-synthetic'));
     d.appendChild(tags);
 
     const mass_d = document.createElement("span");
@@ -100,10 +102,11 @@ for(let i = 1; i <= elements.length; i++) {
 
 
 
-const info_bar = document.getElementById('info-bar');
+const info_bar = document.getElementById('info-bar-container');
 const info_name_d = document.getElementById('element-name-info');
 const info_mass_d = document.getElementById('atomic-mass-info');
 const info_o_states_d = document.getElementById('oxidation-states-info');
+const info_tags_d = document.getElementById('info-tags');
 
 function setCurrentElement(el) {
     console.log(el);
@@ -117,12 +120,20 @@ function setCurrentElement(el) {
     info_mass_d.innerText = el['atomic-mass'];
     info_o_states_d.innerText = el['oxidation-states']?.join(', ') ?? '?';
 
+    info_tags_d.className = ''
+    for(const property of ['primordial', 'diatomic', 'native', 'magnetic', 'radioactive', 'rare', 'synthetic']) {
+        if(el[property]) {
+            info_tags_d.className += ` tag-${property}`
+        }
+    }
+
     info_bar.dataset.state = '';
 }
 
 document.onclick = _ => {
     setCurrentElement(null);
 }
+document.getElementById('info-bar').onclick = _ => {_.stopPropagation()}
 
 let allElements = document.querySelectorAll('.element');
 for(let i of allElements){
